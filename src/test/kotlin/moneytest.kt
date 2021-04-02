@@ -1,0 +1,35 @@
+import org.junit.jupiter.api.Test
+import kotlin.math.ceil
+
+class moneymoney {
+    fun calculationOfCommission(amountOfPreviousTransfers: Int, amount: Int, cardType: String = "VK Pay"): Int {
+        return when (cardType) {
+            "VK Pay" -> 0
+            "Visa", "Мир" -> commissionForVisaAndMir(amount)
+            else -> commissionForMastercardAndMaestro(amountOfPreviousTransfers, amount)
+        }
+    }
+
+    fun commissionForVisaAndMir(amount: Int): Int {
+        val commissionPercent = 0.0075
+        val commission =
+            if (ceil(commissionPercent * amount.toDouble()) < 3500) 3500 else ceil(commissionPercent * amount.toDouble())
+        return commission.toInt()
+    }
+
+    fun commissionForMastercardAndMaestro(amountOfPreviousTransfers: Int, amount: Int): Int {
+        val commissionPercent = 0.006
+        val commission =
+            if (amountOfPreviousTransfers + amount < 75_000_00) 0 else (ceil(commissionPercent * amount.toDouble()) + 20_00)
+        return commission.toInt()
+    }
+
+    @Test
+    fun main() {
+        val cardType = "Visa"
+        val amountOfPreviousTransfers = 100_00
+        val amount = 7_850_000_00
+        println(calculationOfCommission(amountOfPreviousTransfers, amount, cardType))
+    }
+
+}

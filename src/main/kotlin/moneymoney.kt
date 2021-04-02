@@ -3,7 +3,7 @@ import kotlin.math.ceil
 fun main() {
     val cardType = "Visa"
     val amountOfPreviousTransfers = 100_00
-    val amount = 7850_000_00
+    val amount = 7_850_000_00
     println(calculationOfCommission(amountOfPreviousTransfers, amount, cardType))
 }
 
